@@ -6,34 +6,45 @@ replace_letters = {
 }
 
 def clear():
-   ent.delete(1.0, END)
-   lab['text'] = "Поле ввода очищено."
+   enter_text.delete(1.0, END)
+   label_second['text'] = "Поле ввода очищено."
 
-def str_to_sort_list():
-    text = ent.get(1.0, END)
+def letter_replace():
+    text = enter_text.get(1.0, END)
+
     if (text != "" and text != None and text[0] * len(text) != text): 
         for key in replace_letters.keys():
             text = text.replace(key, replace_letters[key])
-        lab['text'] = "Текст преобразован и скопирован в буфер обмена."
-        text = text[:-1]
-        root.clipboard_clear()
-        root.clipboard_append(text)
-    else:
-        lab['text'] = "Вы не ввели текст!"
 
+        label_second['text'] = "Текст преобразован и скопирован в буфер обмена."
+        root.clipboard_clear()
+        root.clipboard_append(text[:-1])
+    else:
+        label_second['text'] = "Вы не ввели текст!"
+
+#====TK INIT====
 root = Tk()
 root.title("Letter Replacer")
 root.geometry("425x440")
+#===============
 
-lab1 = Label(text="Преобразование русских символов в английские без видимых изменений.", font="Arial 9", width=100, fg="#eee", bg="#333")
-ent = Text(root, height=20, width=50)
-but = Button(text="Преобразовать", command=str_to_sort_list)
-but1 = Button(text="Очистить", command=clear)
-lab = Label(text="Введите текст для преобразования!", width=100, bg='black', fg='white')
- 
-lab1.pack()
-ent.pack()
-but.pack()
-but1.pack()
-lab.pack()
+#====up label====
+first_label = Label(text="Преобразование русских символов в английские без видимых изменений.", font="Arial 9", width=100, fg="#eee", bg="#333")
+#================
+
+#====enter text====
+enter_text = Text(root, height=20, width=50)
+#==================
+
+#====buttons====
+edit_button = Button(text="Преобразовать", command=letter_replace)
+clear_button = Button(text="Очистить", command=clear)
+#===============
+
+#====down label====
+label_second = Label(text="Введите текст для преобразования!", width=100, bg='black', fg='white')
+#==================
+
+#====Start Gui====
+first_label.pack(); enter_text.pack(); edit_button.pack(); clear_button.pack(); label_second.pack()
 root.mainloop()
